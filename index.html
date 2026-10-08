@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Descobrindo a Multiplicação</title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+</head>
+
+
+<body>
+
+  <main class="game">
+
+    <!-- CABEÇALHO -->
+
+    <header class="topo">
+
+      <div>
+
+        <h1>🌟 Descobrindo a Multiplicação</h1>
+
+        <p>
+          Observe os grupos e descubra a multiplicação!
+        </p>
+
+      </div>
+
+
+      <div class="pontuacao">
+
+        ⭐
+        <span id="pontos">0</span>
+        pontos
+
+      </div>
+
+    </header>
+
+
+
+    <!-- ESCOLHA DO OBJETO -->
+
+    <section class="escolha">
+
+      <h2>Escolha os objetos</h2>
+
+      <div class="objetos-escolha">
+
+        <button
+          class="escolha-objeto selecionado"
+          data-objeto="🍎"
+        >
+          🍎
+        </button>
+
+        <button
+          class="escolha-objeto"
+          data-objeto="🐶"
+        >
+          🐶
+        </button>
+
+        <button
+          class="escolha-objeto"
+          data-objeto="🍌"
+        >
+          🍌
+        </button>
+
+        <button
+          class="escolha-objeto"
+          data-objeto="⭐"
+        >
+          ⭐
+        </button>
+
+        <button
+          class="escolha-objeto"
+          data-objeto="🐱"
+        >
+          🐱
+        </button>
+
+        <button
+          class="escolha-objeto"
+          data-objeto="🦋"
+        >
+          🦋
+        </button>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- DESAFIO -->
+
+    <section class="desafio">
+
+      <div class="cabecalho-desafio">
+
+        <span>
+          Desafio
+          <strong id="fase">1</strong>
+        </span>
+
+      </div>
+
+
+      <h2>
+        👀 Observe com atenção!
+      </h2>
+
+
+      <p id="instrucao">
+
+        Observe como os objetos estão organizados.
+
+      </p>
+
+
+      <!-- ARRANJO -->
+
+      <div
+        id="arranjo"
+        class="arranjo"
+      ></div>
+
+    </section>
+
+
+
+    <!-- PRIMEIRA ETAPA -->
+
+    <section class="atividade">
+
+      <h2>
+        🔎 Vamos descobrir!
+      </h2>
+
+
+      <div class="pergunta">
+
+        <span>
+          Há
+        </span>
+
+
+        <input
+          id="linhas"
+          type="number"
+          min="1"
+          max="20"
+        >
+
+
+        <span>
+          linhas.
+        </span>
+
+      </div>
+
+
+
+      <div class="pergunta">
+
+        <span>
+          Há
+        </span>
+
+
+        <input
+          id="objetosLinha"
+          type="number"
+          min="1"
+          max="20"
+        >
+
+
+        <span>
+          objetos em cada linha.
+        </span>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- SOMA -->
+
+    <section class="atividade">
+
+      <h2>
+        ➕ Soma de parcelas iguais
+      </h2>
+
+
+      <p>
+        Complete a soma:
+      </p>
+
+
+      <div class="expressao">
+
+        <input
+          id="soma1"
+          type="number"
+        >
+
+        <span>+</span>
+
+
+        <input
+          id="soma2"
+          type="number"
+        >
+
+        <span id="somaExtras"></span>
+
+        <span>=</span>
+
+
+        <input
+          id="somaResultado"
+          type="number"
+        >
+
+      </div>
+
+    </section>
+
+
+
+    <!-- MULTIPLICAÇÃO -->
+
+    <section class="atividade">
+
+      <h2>
+        ✖️ Agora vamos descobrir a multiplicação
+      </h2>
+
+
+      <div class="expressao">
+
+        <input
+          id="fator1"
+          type="number"
+        >
+
+        <span>×</span>
+
+
+        <input
+          id="fator2"
+          type="number"
+        >
+
+        <span>=</span>
+
+
+        <input
+          id="resultado"
+          type="number"
+        >
+
+      </div>
+
+    </section>
+
+
+
+    <!-- BOTÕES -->
+
+    <section class="acoes">
+
+      <button
+        id="conferir"
+        class="principal"
+      >
+
+        ✅ Conferir
+
+      </button>
+
+
+      <button
+        id="limpar"
+        class="secundario"
+      >
+
+        🔄 Limpar
+
+      </button>
+
+
+      <button
+        id="proximo"
+        class="proximo"
+        hidden
+      >
+
+        ➡️ Próximo desafio
+
+      </button>
+
+    </section>
+
+
+
+    <!-- FEEDBACK -->
+
+    <div
+      id="feedback"
+      class="feedback"
+      aria-live="polite"
+    ></div>
+
+
+    <!-- EXPLICAÇÃO -->
+
+    <section
+      id="explicacao"
+      class="explicacao"
+      hidden
+    ></section>
+
+
+  </main>
+
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
