@@ -4,45 +4,23 @@
 
 const desafios = [
 
-  {
-    linhas: 2,
-    objetosLinha: 3
-  },
+  { linhas: 2, objetosLinha: 3 },
+  { linhas: 3, objetosLinha: 4 },
+  { linhas: 4, objetosLinha: 2 },
+  { linhas: 3, objetosLinha: 5 },
+  { linhas: 4, objetosLinha: 3 },
 
-  {
-    linhas: 3,
-    objetosLinha: 4
-  },
+  { linhas: 5, objetosLinha: 4 },
+  { linhas: 2, objetosLinha: 6 },
+  { linhas: 4, objetosLinha: 5 },
+  { linhas: 5, objetosLinha: 3 },
+  { linhas: 3, objetosLinha: 6 },
 
-  {
-    linhas: 4,
-    objetosLinha: 2
-  },
-
-  {
-    linhas: 3,
-    objetosLinha: 5
-  },
-
-  {
-    linhas: 4,
-    objetosLinha: 3
-  },
-
-  {
-    linhas: 5,
-    objetosLinha: 4
-  },
-
-  {
-    linhas: 2,
-    objetosLinha: 6
-  },
-
-  {
-    linhas: 4,
-    objetosLinha: 5
-  }
+  { linhas: 2, objetosLinha: 7 },
+  { linhas: 5, objetosLinha: 5 },
+  { linhas: 4, objetosLinha: 6 },
+  { linhas: 3, objetosLinha: 7 },
+  { linhas: 5, objetosLinha: 6 }
 
 ];
 
@@ -79,11 +57,6 @@ const explicacao =
 
 const proximo =
   document.getElementById("proximo");
-
-
-/* =====================================
-   CAMPOS
-===================================== */
 
 const linhas =
   document.getElementById("linhas");
@@ -126,15 +99,12 @@ document
 
           });
 
-
         botao.classList.add(
           "selecionado"
         );
 
-
         objetoSelecionado =
           botao.dataset.objeto;
-
 
         mostrarDesafio();
 
@@ -146,7 +116,7 @@ document
 
 
 /* =====================================
-   CRIAR OS CAMPOS DA SOMA
+   CRIAR SOMA
 ===================================== */
 
 function criarSoma() {
@@ -154,23 +124,8 @@ function criarSoma() {
   const desafio =
     desafios[desafioAtual];
 
-
-  /*
-    Limpa a soma anterior.
-  */
-
   somaCampos.innerHTML = "";
 
-
-  /*
-    Cria uma caixa para cada linha.
-
-    Exemplo:
-
-    3 linhas
-
-    [4] + [4] + [4]
-  */
 
   for (
     let i = 0;
@@ -181,38 +136,24 @@ function criarSoma() {
     const campo =
       document.createElement("input");
 
-
-    campo.type =
-      "number";
-
+    campo.type = "number";
 
     campo.className =
       "campo-soma";
 
+    campo.min = "1";
 
-    campo.min =
-      "1";
-
-
-    campo.max =
-      "20";
-
+    campo.max = "20";
 
     campo.setAttribute(
       "aria-label",
       `Parcela ${i + 1}`
     );
 
-
     somaCampos.appendChild(
       campo
     );
 
-
-    /*
-      Coloca o sinal de +
-      entre as parcelas.
-    */
 
     if (
       i <
@@ -222,10 +163,7 @@ function criarSoma() {
       const mais =
         document.createElement("span");
 
-
-      mais.textContent =
-        "+";
-
+      mais.textContent = "+";
 
       somaCampos.appendChild(
         mais
@@ -236,52 +174,33 @@ function criarSoma() {
   }
 
 
-  /*
-    Coloca o sinal de =
-  */
-
   const igual =
     document.createElement("span");
 
-
-  igual.textContent =
-    "=";
-
+  igual.textContent = "=";
 
   somaCampos.appendChild(
     igual
   );
 
 
-  /*
-    Campo do resultado
-  */
-
   const campoResultado =
     document.createElement("input");
-
 
   campoResultado.type =
     "number";
 
-
   campoResultado.id =
     "somaResultado";
 
+  campoResultado.min = "1";
 
-  campoResultado.min =
-    "1";
-
-
-  campoResultado.max =
-    "400";
-
+  campoResultado.max = "400";
 
   campoResultado.setAttribute(
     "aria-label",
     "Resultado da soma"
   );
-
 
   somaCampos.appendChild(
     campoResultado
@@ -303,11 +222,6 @@ function mostrarDesafio() {
   fase.textContent =
     desafioAtual + 1;
 
-
-  /*
-    Cria a organização
-    dos objetos.
-  */
 
   arranjo.innerHTML = "";
 
@@ -335,14 +249,11 @@ function mostrarDesafio() {
     const objeto =
       document.createElement("div");
 
-
     objeto.className =
       "objeto";
 
-
     objeto.textContent =
       objetoSelecionado;
-
 
     arranjo.appendChild(
       objeto
@@ -351,16 +262,9 @@ function mostrarDesafio() {
   }
 
 
-  /*
-    Cria a quantidade correta
-    de parcelas.
-  */
-
   criarSoma();
 
-
   limparCampos();
-
 
   feedback.textContent = "";
 
@@ -387,10 +291,6 @@ function limparCampos() {
 
   resultado.value = "";
 
-  /*
-    Limpa todos os campos
-    da soma.
-  */
 
   document
     .querySelectorAll(".campo-soma")
@@ -429,20 +329,16 @@ function conferir() {
   const valorLinhas =
     Number(linhas.value);
 
-
   const valorObjetos =
     Number(
       objetosLinha.value
     );
 
-
   const valorFator1 =
     Number(fator1.value);
 
-
   const valorFator2 =
     Number(fator2.value);
-
 
   const valorResultado =
     Number(resultado.value);
@@ -455,7 +351,7 @@ function conferir() {
 
 
   /* =====================================
-     VERIFICAR LINHAS
+     ORGANIZAÇÃO
   ===================================== */
 
   const organizacaoCorreta =
@@ -468,7 +364,7 @@ function conferir() {
 
 
   /* =====================================
-     VERIFICAR SOMA
+     SOMA
   ===================================== */
 
   const parcelas =
@@ -478,12 +374,6 @@ function conferir() {
       )
     );
 
-
-  /*
-    Todas as parcelas devem
-    ser iguais à quantidade
-    de objetos por linha.
-  */
 
   const somaCorreta =
 
@@ -513,17 +403,8 @@ function conferir() {
 
 
   /* =====================================
-     VERIFICAR MULTIPLICAÇÃO
+     MULTIPLICAÇÃO
   ===================================== */
-
-  /*
-    Agora NÃO permitimos inverter
-    os fatores.
-
-    Queremos ensinar:
-
-    linhas × objetos em cada linha
-  */
 
   const multiplicacaoCorreta =
 
@@ -541,7 +422,7 @@ function conferir() {
 
 
   /* =====================================
-     RESULTADO
+     VERIFICAR
   ===================================== */
 
   if (
@@ -560,38 +441,36 @@ function conferir() {
 
     pontos += 10;
 
-
     pontosElemento.textContent =
       pontos;
 
 
     feedback.textContent =
-      "🎉 Muito bem! Você descobriu a multiplicação!";
+      "🎉 Muito bem! Você acertou!";
 
 
     explicacao.innerHTML = `
 
       <strong>
-        🌟 Muito bem!
+        🌟 Excelente!
       </strong>
 
       <br><br>
 
-      Você observou que existem
-
+      Temos
       <strong>
         ${desafio.linhas} linhas
       </strong>
 
-      e que em cada linha existem
-
+      com
       <strong>
-        ${desafio.objetosLinha} objetos.
+        ${desafio.objetosLinha}
+        objetos em cada linha.
       </strong>
 
       <br><br>
 
-      ➕ Por isso podemos fazer:
+      ➕ Soma de parcelas iguais:
 
       <br>
 
@@ -605,8 +484,7 @@ function conferir() {
 
       <br><br>
 
-      ✖️ E podemos representar
-      essa mesma ideia com:
+      ✖️ Multiplicação:
 
       <br>
 
@@ -620,9 +498,8 @@ function conferir() {
 
       <br><br>
 
-      🎯 A multiplicação é uma maneira
-      de representar uma adição de
-      parcelas iguais.
+      🎯 As duas formas representam
+      a mesma quantidade!
 
     `;
 
@@ -631,8 +508,24 @@ function conferir() {
       false;
 
 
-    proximo.hidden =
-      false;
+    /*
+      Verifica se foi o
+      último desafio.
+    */
+
+    if (
+      desafioAtual ===
+      desafios.length - 1
+    ) {
+
+      mostrarFinal();
+
+    } else {
+
+      proximo.hidden =
+        false;
+
+    }
 
 
   } else {
@@ -642,6 +535,121 @@ function conferir() {
       "💡 Observe novamente as linhas e os objetos e confira cada parte.";
 
   }
+
+}
+
+
+/* =====================================
+   TELA FINAL
+===================================== */
+
+function mostrarFinal() {
+
+  arranjo.innerHTML = "";
+
+
+  document
+    .querySelector(".atividade")
+    .style.display = "none";
+
+
+  /*
+    Esconde todas as atividades.
+  */
+
+  document
+    .querySelectorAll(".atividade")
+    .forEach(secao => {
+
+      secao.style.display = "none";
+
+    });
+
+
+  feedback.innerHTML = `
+
+    <div class="final-jogo">
+
+      <div class="trofeu">
+        🏆
+      </div>
+
+      <h2>
+        Parabéns!
+      </h2>
+
+      <p>
+        Você terminou todos os
+        <strong>15 desafios!</strong>
+      </p>
+
+      <div class="pontuacao-final">
+
+        ⭐ ${pontos} pontos
+
+      </div>
+
+      <p>
+        Você descobriu que a
+        multiplicação pode representar
+        uma adição de parcelas iguais.
+      </p>
+
+      <button
+        id="jogarNovamente"
+        class="jogar-novamente"
+      >
+        🔄 Jogar novamente
+      </button>
+
+    </div>
+
+  `;
+
+
+  proximo.hidden = true;
+
+
+  document
+    .getElementById(
+      "jogarNovamente"
+    )
+    .addEventListener(
+      "click",
+      reiniciarJogo
+    );
+
+}
+
+
+/* =====================================
+   REINICIAR
+===================================== */
+
+function reiniciarJogo() {
+
+  desafioAtual = 0;
+
+  pontos = 0;
+
+  pontosElemento.textContent =
+    pontos;
+
+
+  document
+    .querySelectorAll(".atividade")
+    .forEach(secao => {
+
+      secao.style.display = "block";
+
+    });
+
+
+  feedback.innerHTML = "";
+
+  explicacao.hidden = true;
+
+  mostrarDesafio();
 
 }
 
@@ -693,17 +701,6 @@ proximo.addEventListener(
   () => {
 
     desafioAtual++;
-
-
-    if (
-      desafioAtual >=
-      desafios.length
-    ) {
-
-      desafioAtual = 0;
-
-    }
-
 
     mostrarDesafio();
 
