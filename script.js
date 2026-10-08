@@ -91,16 +91,8 @@ const linhas =
 const objetosLinha =
   document.getElementById("objetosLinha");
 
-
-const soma1 =
-  document.getElementById("soma1");
-
-const soma2 =
-  document.getElementById("soma2");
-
-const somaResultado =
-  document.getElementById("somaResultado");
-
+const somaCampos =
+  document.getElementById("somaCampos");
 
 const fator1 =
   document.getElementById("fator1");
@@ -124,11 +116,6 @@ document
       "click",
       () => {
 
-        /*
-          Retira a seleção
-          dos outros objetos.
-        */
-
         document
           .querySelectorAll(".escolha-objeto")
           .forEach(b => {
@@ -139,11 +126,6 @@ document
 
           });
 
-
-        /*
-          Seleciona o objeto
-          escolhido.
-        */
 
         botao.classList.add(
           "selecionado"
@@ -164,6 +146,151 @@ document
 
 
 /* =====================================
+   CRIAR OS CAMPOS DA SOMA
+===================================== */
+
+function criarSoma() {
+
+  const desafio =
+    desafios[desafioAtual];
+
+
+  /*
+    Limpa a soma anterior.
+  */
+
+  somaCampos.innerHTML = "";
+
+
+  /*
+    Cria uma caixa para cada linha.
+
+    Exemplo:
+
+    3 linhas
+
+    [4] + [4] + [4]
+  */
+
+  for (
+    let i = 0;
+    i < desafio.linhas;
+    i++
+  ) {
+
+    const campo =
+      document.createElement("input");
+
+
+    campo.type =
+      "number";
+
+
+    campo.className =
+      "campo-soma";
+
+
+    campo.min =
+      "1";
+
+
+    campo.max =
+      "20";
+
+
+    campo.setAttribute(
+      "aria-label",
+      `Parcela ${i + 1}`
+    );
+
+
+    somaCampos.appendChild(
+      campo
+    );
+
+
+    /*
+      Coloca o sinal de +
+      entre as parcelas.
+    */
+
+    if (
+      i <
+      desafio.linhas - 1
+    ) {
+
+      const mais =
+        document.createElement("span");
+
+
+      mais.textContent =
+        "+";
+
+
+      somaCampos.appendChild(
+        mais
+      );
+
+    }
+
+  }
+
+
+  /*
+    Coloca o sinal de =
+  */
+
+  const igual =
+    document.createElement("span");
+
+
+  igual.textContent =
+    "=";
+
+
+  somaCampos.appendChild(
+    igual
+  );
+
+
+  /*
+    Campo do resultado
+  */
+
+  const campoResultado =
+    document.createElement("input");
+
+
+  campoResultado.type =
+    "number";
+
+
+  campoResultado.id =
+    "somaResultado";
+
+
+  campoResultado.min =
+    "1";
+
+
+  campoResultado.max =
+    "400";
+
+
+  campoResultado.setAttribute(
+    "aria-label",
+    "Resultado da soma"
+  );
+
+
+  somaCampos.appendChild(
+    campoResultado
+  );
+
+}
+
+
+/* =====================================
    MOSTRAR DESAFIO
 ===================================== */
 
@@ -178,7 +305,8 @@ function mostrarDesafio() {
 
 
   /*
-    Cria a grade.
+    Cria a organização
+    dos objetos.
   */
 
   arranjo.innerHTML = "";
@@ -192,20 +320,11 @@ function mostrarDesafio() {
     )`;
 
 
-  /*
-    Calcula a quantidade
-    total de objetos.
-  */
-
   const total =
 
     desafio.linhas *
     desafio.objetosLinha;
 
-
-  /*
-    Cria os objetos.
-  */
 
   for (
     let i = 0;
@@ -232,6 +351,14 @@ function mostrarDesafio() {
   }
 
 
+  /*
+    Cria a quantidade correta
+    de parcelas.
+  */
+
+  criarSoma();
+
+
   limparCampos();
 
 
@@ -254,17 +381,37 @@ function limparCampos() {
 
   objetosLinha.value = "";
 
-  soma1.value = "";
-
-  soma2.value = "";
-
-  somaResultado.value = "";
-
   fator1.value = "";
 
   fator2.value = "";
 
   resultado.value = "";
+
+  /*
+    Limpa todos os campos
+    da soma.
+  */
+
+  document
+    .querySelectorAll(".campo-soma")
+    .forEach(campo => {
+
+      campo.value = "";
+
+    });
+
+
+  const somaResultado =
+    document.getElementById(
+      "somaResultado"
+    );
+
+
+  if (somaResultado) {
+
+    somaResultado.value = "";
+
+  }
 
 }
 
@@ -289,20 +436,6 @@ function conferir() {
     );
 
 
-  const valorSoma1 =
-    Number(soma1.value);
-
-
-  const valorSoma2 =
-    Number(soma2.value);
-
-
-  const valorSomaResultado =
-    Number(
-      somaResultado.value
-    );
-
-
   const valorFator1 =
     Number(fator1.value);
 
@@ -315,41 +448,15 @@ function conferir() {
     Number(resultado.value);
 
 
-  /*
-    Resultado correto.
-  */
-
   const total =
 
     desafio.linhas *
     desafio.objetosLinha;
 
 
-  /*
-    Soma de parcelas iguais.
-
-    Exemplo:
-
-    2 linhas com 3 objetos:
-
-    3 + 3 = 6
-  */
-
-  const somaCorreta =
-
-    valorSoma1 ===
-      desafio.objetosLinha &&
-
-    valorSoma2 ===
-      desafio.objetosLinha &&
-
-    valorSomaResultado ===
-      total;
-
-
-  /*
-    Linhas e colunas.
-  */
+  /* =====================================
+     VERIFICAR LINHAS
+  ===================================== */
 
   const organizacaoCorreta =
 
@@ -360,41 +467,71 @@ function conferir() {
       desafio.objetosLinha;
 
 
+  /* =====================================
+     VERIFICAR SOMA
+  ===================================== */
+
+  const parcelas =
+    Array.from(
+      document.querySelectorAll(
+        ".campo-soma"
+      )
+    );
+
+
   /*
-    Multiplicação.
+    Todas as parcelas devem
+    ser iguais à quantidade
+    de objetos por linha.
+  */
 
-    Aceitamos:
+  const somaCorreta =
 
-    2 × 3
+    parcelas.length ===
+      desafio.linhas &&
 
-    ou
+    parcelas.every(
+      campo =>
+        Number(campo.value) ===
+        desafio.objetosLinha
+    );
 
-    3 × 2
+
+  const campoSomaResultado =
+    document.getElementById(
+      "somaResultado"
+    );
+
+
+  const resultadoSomaCorreto =
+
+    campoSomaResultado &&
+
+    Number(
+      campoSomaResultado.value
+    ) === total;
+
+
+  /* =====================================
+     VERIFICAR MULTIPLICAÇÃO
+  ===================================== */
+
+  /*
+    Agora NÃO permitimos inverter
+    os fatores.
+
+    Queremos ensinar:
+
+    linhas × objetos em cada linha
   */
 
   const multiplicacaoCorreta =
 
-    (
+    valorFator1 ===
+      desafio.linhas &&
 
-      valorFator1 ===
-        desafio.linhas &&
-
-      valorFator2 ===
-        desafio.objetosLinha
-
-    )
-
-    ||
-
-    (
-
-      valorFator1 ===
-        desafio.objetosLinha &&
-
-      valorFator2 ===
-        desafio.linhas
-
-    );
+    valorFator2 ===
+      desafio.objetosLinha;
 
 
   const resultadoCorreto =
@@ -403,9 +540,9 @@ function conferir() {
     total;
 
 
-  /*
-    Verifica tudo.
-  */
+  /* =====================================
+     RESULTADO
+  ===================================== */
 
   if (
 
@@ -413,15 +550,13 @@ function conferir() {
 
     somaCorreta &&
 
+    resultadoSomaCorreto &&
+
     multiplicacaoCorreta &&
 
     resultadoCorreto
 
   ) {
-
-    /*
-      Acertou!
-    */
 
     pontos += 10;
 
@@ -437,44 +572,43 @@ function conferir() {
     explicacao.innerHTML = `
 
       <strong>
-        🌟 Você percebeu a relação!
+        🌟 Muito bem!
       </strong>
 
       <br><br>
 
-      Temos
+      Você observou que existem
+
       <strong>
         ${desafio.linhas} linhas
       </strong>
 
-      com
+      e que em cada linha existem
 
       <strong>
-        ${desafio.objetosLinha}
-        objetos em cada linha.
+        ${desafio.objetosLinha} objetos.
       </strong>
 
       <br><br>
 
-      ➕ Soma de parcelas iguais:
+      ➕ Por isso podemos fazer:
+
+      <br>
 
       <strong>
-        ${desafio.objetosLinha}
-        +
-        ${desafio.objetosLinha}
+        ${Array(desafio.linhas)
+          .fill(desafio.objetosLinha)
+          .join(" + ")}
         =
-        ${desafio.objetosLinha * 2}
+        ${total}
       </strong>
-
-      ${
-        desafio.linhas > 2
-        ? ` e outras ${desafio.linhas - 2} parcelas iguais.`
-        : ""
-      }
 
       <br><br>
 
-      ✖️ Multiplicação:
+      ✖️ E podemos representar
+      essa mesma ideia com:
+
+      <br>
 
       <strong>
         ${desafio.linhas}
@@ -486,10 +620,9 @@ function conferir() {
 
       <br><br>
 
-      🎯 Portanto, temos
-      <strong>
-        ${total} objetos ao todo!
-      </strong>
+      🎯 A multiplicação é uma maneira
+      de representar uma adição de
+      parcelas iguais.
 
     `;
 
@@ -504,13 +637,9 @@ function conferir() {
 
   } else {
 
-    /*
-      Ainda não acertou.
-    */
-
     feedback.textContent =
 
-      "💡 Observe novamente as linhas e os objetos. Confira cada parte da atividade.";
+      "💡 Observe novamente as linhas e os objetos e confira cada parte.";
 
   }
 
@@ -565,11 +694,6 @@ proximo.addEventListener(
 
     desafioAtual++;
 
-
-    /*
-      Quando terminar todos
-      os desafios, volta ao primeiro.
-    */
 
     if (
       desafioAtual >=
